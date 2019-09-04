@@ -16,12 +16,36 @@ public class Person {
     /**
      * Constructs a person object
      */
-    public Person(String firstname, String lastname, Status status) {
+    public Person(String firstName, String lastName, Status status) {
 
-        this.first  = firstname;
-        this.last   = lastname;
+        this.first  = firstName;
+        this.last   = lastName;
         this.status = status;
 
     } // end Person constructor
+
+    // Getters and setters below
+
+    public void setFirst(String firstName) {
+        this.first = firstName;
+    }
+
+    public void setLast(String lastName) {
+        this.last = lastName;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getFirst() {
+        return this.first;
+    }
+    public String getLast() {
+        return this.last;
+    }
+    public String getStatus() {
+        return this.status;
+    }
 
 } // end Person class
