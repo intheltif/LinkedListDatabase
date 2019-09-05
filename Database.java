@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * The driver of our program.
+ * The driver of our program. Does all of the printing to the console.
  *
  * @author Evert Ball
  * @version 09/18/2019
