@@ -6,6 +6,13 @@
  */
 public class Person {
 
+    private enum Status {
+        SINGLE,
+        MARRIED,
+        DIVORCED,
+        WIDOWED
+    }
+
     /** First Name */
     private String first;
     /** Last name */
@@ -44,7 +51,7 @@ public class Person {
     public String getLast() {
         return this.last;
     }
-    public String getStatus() {
+    public Status getStatus() {
         return this.status;
     }
 
