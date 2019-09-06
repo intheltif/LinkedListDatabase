@@ -98,7 +98,7 @@ public class Table<T extends AttributeInterface> {
     /**
      * Get the head of the Linked List.
      *
-     * @param head The head node of the linked list.
+     * @return The first record in the table.
      */
     public Node getHead() {
         return this.head;
@@ -108,6 +108,7 @@ public class Table<T extends AttributeInterface> {
      * Get the tail node of the linked list.
      *
      * @param tail The tail node of the linked list.
+     * @return The last record in the table.
      */
     public Node getTail() {
         return this.tail;
@@ -116,16 +117,16 @@ public class Table<T extends AttributeInterface> {
     /**
      * Set the current node of the linked list.
      *
-     * @param current The current node of the linked list.
+     * @return The current record in our table.
      */
-    public Node setCurrent() {
+    public Node getCurrent() {
         return this.currentNode;
     } // end getCurrent method
 
     /**
      * Get the name of the table.
      *
-     * @param title The name of the table.
+     * @return The name of the table.
      */
     public String getTitle() {
         return this.title;
@@ -143,6 +144,16 @@ public class Table<T extends AttributeInterface> {
         this.tail = newNode;
     } // end insert method
 
+    /**
+     * Removes the node matching id
+     *
+     * @param id The ID of the node to remove.
+     */
+    public void remove(String id) {
+
+        // TODO: Remove node matching id
+    
+    } // end remove method
 
 
     // The Node class.
