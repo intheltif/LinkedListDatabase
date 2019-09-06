@@ -6,6 +6,9 @@ public class Table<T extends AttributeInterface> {
     /** Last record in the table */
     private Node tail;
 
+    /** The current record we are on in the table */
+    private Node currentNode;
+
     /** Label for the table */
     private String title;
     
@@ -21,6 +24,7 @@ public class Table<T extends AttributeInterface> {
         this.head  = head;
         this.tail  = tail;
         this.title = title;
+        this.currentNode = head;
 
     } // end Table constructor
 
@@ -35,6 +39,7 @@ public class Table<T extends AttributeInterface> {
         this.head  = head;
         this.tail  = null;
         this.title = title;
+        this.currentNode = head;
 
     } // end Table constructor
     
@@ -48,8 +53,11 @@ public class Table<T extends AttributeInterface> {
         this.head  = null
         this.tail  = null;
         this.title = title;
+        this.currentNode = null;
 
     } // end Table constructor
+
+    // Getters and Setters
     
     /**
      * Set the head of the Linked List.
@@ -58,7 +66,7 @@ public class Table<T extends AttributeInterface> {
      */
     public void setHead(Node head) {
         this.head = head;
-    } // end setHead constructor
+    } // end setHead method
 
     /**
      * Set the tail node of the linked list.
@@ -68,6 +76,15 @@ public class Table<T extends AttributeInterface> {
     public void setTail(Node tail) {
         this.tail = tail;
     } // end setTail method
+    
+    /**
+     * Set the current node of the linked list.
+     *
+     * @param current The current node of the linked list.
+     */
+    public void setCurrent(Node current) {
+        this.currentNode = current;
+    } // end setCurrent method
 
     /**
      * Set the name of the table.
@@ -83,28 +100,59 @@ public class Table<T extends AttributeInterface> {
      *
      * @param head The head node of the linked list.
      */
-    public void getHead(Node head) {
-        this.head = head;
-    } // end getHead constructor
+    public Node getHead() {
+        return this.head;
+    } // end getHead method
 
     /**
      * Get the tail node of the linked list.
      *
      * @param tail The tail node of the linked list.
      */
-    public void getTail(Node tail) {
-        this.tail = tail;
+    public Node getTail() {
+        return this.tail;
     } // end getTail method
+
+    /**
+     * Set the current node of the linked list.
+     *
+     * @param current The current node of the linked list.
+     */
+    public Node setCurrent() {
+        return this.currentNode;
+    } // end getCurrent method
 
     /**
      * Get the name of the table.
      *
      * @param title The name of the table.
      */
-    public void getTitle(String title) {
-        this.tail = tail;
+    public String getTitle() {
+        return this.title;
     } // end getTail method
+    
+    // Actual methods that do something
+    
+    /**
+     * Adds a new record to the end of table.
+     *
+     * @param data The data for the new row in the table.
+     */
+    public void insert(T data) {
+        Node newNode = new Node(data);
+        this.tail = newNode;
+    } // end insert method
 
+
+
+    // The Node class.
+    
+    /**
+     * The nodes that make up our linked list.
+     *
+     * @author Evert Ball
+     * @version 09/18/2019
+     */
     private class Node {
 
         /** Reference to the data */
