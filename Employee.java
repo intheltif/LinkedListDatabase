@@ -100,7 +100,7 @@ public class Employee implements AttributeInterface {
 
             this.first  = firstName;
             this.last   = lastName;
-            this.status = Status.valueOf(status.toUpperCase()); //TODO get help. How do I set?
+            this.status = Status.valueOf(status.toUpperCase()); //TODO get help. right way to set?
 
         } // end Person constructor
         

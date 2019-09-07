@@ -19,7 +19,7 @@ public class Table<T extends AttributeInterface> {
      */
     public Table(String title) {
 
-        this.head  = null
+        this.head  = null;
         this.tail  = null;
         this.title = title;
         this.currentNode = null;
@@ -76,7 +76,6 @@ public class Table<T extends AttributeInterface> {
     /**
      * Get the tail node of the linked list.
      *
-     * @param tail The tail node of the linked list.
      * @return The last record in the table.
      */
     public Node getTail() {
