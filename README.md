@@ -15,4 +15,6 @@ To use, just run the Database by typing
 java Database
 ```
 and following the on screen prompts.
-## Other
+
+## Known Issues
+There are currently no known issues.
