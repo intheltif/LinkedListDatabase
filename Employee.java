@@ -26,14 +26,16 @@ public class Employee implements AttributeInterface {
             String phone,
             String division,
             String years,
-            Person person,
+            String firstName,
+            String lastName,
+            String status,
             String department) {
 
         this.id = id;
         this.phone = phone;
         this.division = division;
         this.years = years;
-        this.person = person;
+        this.person = new Person(firstName, lastName, status);
         this.department = department;
 
     } // end constructor
@@ -81,8 +83,8 @@ public class Employee implements AttributeInterface {
             SINGLE,
             MARRIED,
             DIVORCED,
-            WIDOWED
-        }
+            WIDOWED,
+        };
 
         /** First Name */
         private String first;
@@ -94,11 +96,11 @@ public class Employee implements AttributeInterface {
         /**
          * Constructs a person object
          */
-        public Person(String firstName, String lastName, Status status) {
+        public Person(String firstName, String lastName, String status) {
 
             this.first  = firstName;
             this.last   = lastName;
-            this.status = status;
+            this.status = Status.valueOf(status.toUpperCase()); //TODO get help. How do I set?
 
         } // end Person constructor
         

@@ -11,38 +11,7 @@ public class Table<T extends AttributeInterface> {
 
     /** Label for the table */
     private String title;
-    
-    /**
-     * Constructor that creates a table with all relevant fields.
-     *
-     * @param head The head Node of the linked list.
-     * @param tail The tail Node of the linked list.
-     * @param title The name of the table.
-     */
-    public Table(Node head, Node tail, String title) {
 
-        this.head  = head;
-        this.tail  = tail;
-        this.title = title;
-        this.currentNode = head;
-
-    } // end Table constructor
-
-    /**
-     * Constructor that creates a table with only head and title.
-     *
-     * @param head The head Node of the linked list.
-     * @param title The name of the table.
-     */
-    public Table(Node head, String title) {
-
-        this.head  = head;
-        this.tail  = null;
-        this.title = title;
-        this.currentNode = head;
-
-    } // end Table constructor
-    
     /**
      * Constructor that creates a table with only the title.
      *
@@ -135,24 +104,75 @@ public class Table<T extends AttributeInterface> {
     // Actual methods that do something
     
     /**
-     * Adds a new record to the end of table.
+     * Adds a new record to the end of table. If the table is empty, sets the head and the tail
+     * references to the new node. Otherwise it changes the current tail to point to the newly
+     * created Node and moves the tail to the new Node.
+     * TODO: Maybe remove a bit of documentaion explaining how it works.
      *
      * @param data The data for the new row in the table.
      */
     public void insert(T data) {
+
         Node newNode = new Node(data);
+
+        if(head == null) {
+            head = newNode;
+        }
+        this.tail.next = newNode;
         this.tail = newNode;
     } // end insert method
 
     /**
-     * Removes the node matching id
+     * Removes the node matching id. Does a lot of checks to see which node
+     * we are currently on. Keeps track of nodes ahead and behind of the
+     * current so that we can remove it's reference, essentially deleting
+     * the node.
      *
      * @param id The ID of the node to remove.
      */
     public void remove(String id) {
 
-        // TODO: Remove node matching id
-    
+        // TODO: Ask Dr. K what ID refers to. The id of the node or the person/employee?
+        if(this.head == null) {
+            System.out.println("Unable to remove element from empty table");
+        } else {
+            Node previousNode = head;
+            Node currentNode = head;
+            Node nextNode = head.next;
+
+            // Convoluted logic that removes references to the node that
+            // matches id.
+            while(currentNode.next != null) { // while we not on last node
+
+                // If we find the id we are looking for
+                if (currentNode.data.check("id", id)) {
+
+                    // If it's the first node in the list
+                    if(currentNode == head) {
+                        // remove set head to the next node after this one and
+                        // remove this node's ref to the next
+                        head = nextNode;
+                        currentNode.next = null;
+                    // if it's not the first node
+                    } else {
+                        // move previous node's ref to the node after this one
+                        // remove this node's ref to the next one
+                        previousNode.next = nextNode;
+                        currentNode.next = null;
+                    } // end head check if statement
+                // if on second node, don't move the previous node
+                } else if(previousNode == head) {
+                    currentNode = nextNode;
+                    nextNode = currentNode.next;
+                // otherwise move all node refs forward one and look again.
+                } else {
+                    previousNode = currentNode;
+                    currentNode = nextNode;
+                    nextNode = currentNode.next;
+                } //end attribute check if statement
+            } // end while loop
+        } // end outter-most if else
+
     } // end remove method
 
 
