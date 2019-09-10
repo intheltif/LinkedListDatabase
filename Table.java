@@ -116,9 +116,11 @@ public class Table<T extends AttributeInterface> {
 
         if(head == null) {
             head = newNode;
+            tail = newNode;
+        } else {
+            this.tail.next = newNode;
+            this.tail = newNode;
         }
-        this.tail.next = newNode;
-        this.tail = newNode;
     } // end insert method
 
     /**
@@ -131,7 +133,6 @@ public class Table<T extends AttributeInterface> {
      */
     public void remove(String id) {
 
-        // TODO: Ask Dr. K what ID refers to. The id of the node or the person/employee?
         if(this.head == null) {
             System.out.println("Unable to remove element from empty table");
         } else {
@@ -139,9 +140,8 @@ public class Table<T extends AttributeInterface> {
             Node currentNode = head;
             Node nextNode = head.next;
 
-            // Convoluted logic that removes references to the node that
-            // matches id.
-            while(currentNode.next != null) { // while we not on last node
+            // Logic that removes references to the node that matches id.
+            while(currentNode.next != null) { // while not on last node
 
                 // If we find the id we are looking for
                 if (currentNode.data.check("id", id)) {
@@ -173,6 +173,15 @@ public class Table<T extends AttributeInterface> {
         } // end outter-most if else
 
     } // end remove method
+
+    public String toString() {
+        Node current = head;
+        String returnString = "";
+        while(current.next != null) {
+            returnString = returnString + "\n" + current.data.toString();
+        }
+        return returnString;
+    }
 
 
     // The Node class.

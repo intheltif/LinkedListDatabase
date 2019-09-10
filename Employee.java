@@ -1,4 +1,10 @@
-public class Employee implements AttributeInterface {
+/**
+ * Represents an employee in our database.
+ *
+ * @author Evert Ball
+ * @version 09/18/2019
+ */
+public class Employee implements AttributeInterface  {
 
     /** Identification number */
     private String id;
@@ -23,12 +29,12 @@ public class Employee implements AttributeInterface {
      */
     public Employee(
             String id,
-            String phone,
-            String division,
-            String years,
             String firstName,
             String lastName,
             String status,
+            String phone,
+            String division,
+            String years,
             String department) {
 
         this.id = id;
@@ -47,8 +53,10 @@ public class Employee implements AttributeInterface {
      * @param value The specific value to check for.
      * @return true if the value exists, false otherwise.
      */
+    @Override
     public boolean check(String attribute, String value) {
         // TODO finish check method.
+        return false;
     } // end check method.
 
     /**
@@ -58,8 +66,10 @@ public class Employee implements AttributeInterface {
      * @param value The value we are changing the attribute to.
      * @return True if the value was changed, false otherwise.
      */
+    @Override
     public boolean change(String attribute, String value) {
         // TODO finish change method.
+        return false;
     } // end change method
 
     /**
@@ -67,64 +77,24 @@ public class Employee implements AttributeInterface {
      *
      * @return A deep copy.
      */
-    public AttributeInterface makeCopy() {
+    @Override
+    public void /*AttributeInterface*/ makeCopy() {
         // TODO finish makeCopy method that makes a deep copy.
+
     }
 
-    /*
-     * Represents a person in our Database.
-     *
-     * @author Evert Ball
-     * @version 09/18/2019
-     */
-    private class Person {
+    @Override
+    public String toString() {
+        StringBuilder builtString = new StringBuilder();
 
-        private enum Status {
-            SINGLE,
-            MARRIED,
-            DIVORCED,
-            WIDOWED,
-        };
-
-        /** First Name */
-        private String first;
-        /** Last name */
-        private String last;
-        /** Marital Status */
-        private Status status;
-
-        /**
-         * Constructs a person object
-         */
-        public Person(String firstName, String lastName, String status) {
-
-            this.first  = firstName;
-            this.last   = lastName;
-            this.status = Status.valueOf(status.toUpperCase()); //TODO get help. right way to set?
-
-        } // end Person constructor
-        
-        public void setFirst(String firstName) {
-            this.first = firstName;
-        }
-
-        public void setLast(String lastName) {
-            this.last = lastName;
-        }
-
-        public void setStatus(Status status) {
-            this.status = status;
-        }
-
-        public String getFirst() {
-            return this.first;
-        }
-        public String getLast() {
-            return this.last;
-        }
-        public Status getStatus() {
-            return this.status;
-        }
-    } // end Person class
+        builtString.append(this.id + "\t");
+        builtString.append(this.person.getFirst() + "\t");
+        builtString.append(this.person.getLast() + "\t");
+        builtString.append(this.phone + "\t");
+        builtString.append(this.division + "\t");
+        builtString.append(this.years + "\t");
+        builtString.append(this.department + "\t");
+        return builtString.toString();
+    }
 
 } // end Employee class

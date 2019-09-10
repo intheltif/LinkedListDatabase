@@ -13,6 +13,22 @@ public class Database {
         Scanner input = new Scanner(System.in);
         boolean incorrectChoice = true;
 
+        // ============= TESTING IF LINKED LIST WORKS ==================
+
+
+
+        Table<Employee> faculty = new Table<>("Faculty");
+        faculty.insert(new Employee("100", "John", "Doe", "MARRIED", "828-227-9999", "faculty", "12", "Comp Sci"));
+        faculty.insert(new Employee("200", "Jane", "Doe", "MARRIED", "828-227-9922", "faculty", "12", "Comp Sci"));
+        faculty.insert(new Employee("300", "Jimmy", "Buffet", "DIVORCED", "828-888-9292", "faculty", "12", "Comp Sci"));
+        faculty.insert(new Employee("400", "Fred", "Flintstone", "SINGLE", "828-456-4567", "faculty", "12", "Comp Sci"));
+
+        System.out.println(faculty.toString());
+
+
+
+        // ============= TESTING IF LINKED LIST WORKS ==================
+/*
         while(incorrectChoice) {
             System.out.println("Please make a selection:");
             System.out.println("\t0) Quit");
@@ -60,7 +76,7 @@ public class Database {
                     break;
             } // end switch statement
         }
-
+*/
     } // end main method
 
 } // end Database class
