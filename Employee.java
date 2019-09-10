@@ -21,28 +21,24 @@ public class Employee implements AttributeInterface  {
     /** Personal Information */
     private Person person;
 
-    /** Current department or classification */
-    private String department;
-
     /**
      * The constructor for a person object.
      */
     public Employee(
-            String id,
-            String firstName,
             String lastName,
+            String firstName,
             String status,
+            String id,
             String phone,
             String division,
-            String years,
-            String department) {
+            String years
+    ) {
 
         this.id = id;
         this.phone = phone;
         this.division = division;
         this.years = years;
         this.person = new Person(firstName, lastName, status);
-        this.department = department;
 
     } // end constructor
 
@@ -79,10 +75,6 @@ public class Employee implements AttributeInterface  {
                     hasAttribute = true;
                 }
                 break;
-            case "department":
-                if(this.department.equals(value)) {
-                    hasAttribute = true;
-                }
             case "person":
                 if(this.person.toString().equals(value)) {
                     hasAttribute = true;
@@ -126,7 +118,6 @@ public class Employee implements AttributeInterface  {
         builtString.append(this.phone + "\t");
         builtString.append(this.division + "\t");
         builtString.append(this.years + "\t");
-        builtString.append(this.department + "\t");
         return builtString.toString();
     }
 
