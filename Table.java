@@ -177,8 +177,9 @@ public class Table<T extends AttributeInterface> {
     public String toString() {
         Node current = head;
         String returnString = "";
-        while(current.next != null) {
+        while(current != null) {
             returnString = returnString + "\n" + current.data.toString();
+            current = current.next;
         }
         return returnString;
     }
