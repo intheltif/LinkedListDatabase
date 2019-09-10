@@ -6,21 +6,29 @@
  */
 public class Person {
 
+    /** An enumeration of marital statuses a person can have */
     private enum Status {
         SINGLE,
         MARRIED,
         DIVORCED,
         WIDOWED,
     };
+
     /** First Name */
     private String first;
+
     /** Last name */
     private String last;
+
     /** Marital Status */
     private Status status;
 
     /**
-     * Constructs a person object
+     * Creates a person object.
+     *
+     * @param firstName The first name of the person.
+     * @param lastName The last name of the person.
+     * @param status The marital status of the person.
      */
     public Person(String firstName, String lastName, String status) {
 
@@ -30,26 +38,73 @@ public class Person {
 
     } // end Person constructor
 
+    /**
+     * Change the first name of this person.
+     *
+     * @param firstName This person's new first name.
+     */
     public void setFirst(String firstName) {
         this.first = firstName;
     } // end setFirst method
 
+    /**
+     * Change the last name of this person.
+     *
+     * @param lastName The person's new last name.
+     */
     public void setLast(String lastName) {
         this.last = lastName;
     } // end setLast method
 
-    public void setStatus(Status status) {
-        this.status = status;
+    /**
+     * Change this person's marital status.
+     *
+     * @param status The new marital status.
+     */
+    public void setStatus(String status) {
+        this.status = Status.valueOf(status.toUpperCase());
     } //end setStatus method
 
+    /**
+     * Return this person's first name.
+     *
+     * @return The first name of this person.
+     */
     public String getFirst() {
         return this.first;
     } // end getFirst method
+
+    /**
+     * Return this person's last name.
+     *
+     * @return The last name of this person.
+     */
     public String getLast() {
         return this.last;
     } // end getLast method
 
+    /**
+     * Return the marital status of this Person.
+     *
+     * @return The marital status of this person.
+     */
     public Status getStatus() {
         return this.status;
     } // end getStatus method
+
+    /**
+     * Converts our person object to a string. The format of the string
+     * is "Last Name, First Name, Marital Status".
+     *
+     * @return This object as a String in the format specified above.
+     */
+    public String toString() {
+        StringBuilder personString = new StringBuilder("");
+
+        personString.append(this.last + ", ");
+        personString.append(this.first + ", ");
+        personString.append(this.status);
+
+        return personString.toString();
+    }
 } // end Person class

@@ -55,8 +55,42 @@ public class Employee implements AttributeInterface  {
      */
     @Override
     public boolean check(String attribute, String value) {
-        // TODO finish check method.
-        return false;
+
+        boolean hasAttribute = false;
+
+        switch(attribute) {
+            case "id":
+                if(this.id.equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
+            case "phone":
+                if(this.phone.equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
+            case "division":
+                if(this.division.equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
+            case "years":
+                if(this.years.equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
+            case "department":
+                if(this.department.equals(value)) {
+                    hasAttribute = true;
+                }
+            case "person":
+                if(this.person.toString().equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
+        } // end switch statement
+
+        return hasAttribute;
     } // end check method.
 
     /**
@@ -80,7 +114,6 @@ public class Employee implements AttributeInterface  {
     @Override
     public void /*AttributeInterface*/ makeCopy() {
         // TODO finish makeCopy method that makes a deep copy.
-
     }
 
     @Override
