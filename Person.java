@@ -8,10 +8,10 @@ public class Person {
 
     /** An enumeration of marital statuses a person can have */
     private enum Status {
-        SINGLE,
-        MARRIED,
-        DIVORCED,
-        WIDOWED,
+        S,
+        M,
+        D,
+        W
     };
 
     /** First Name */
