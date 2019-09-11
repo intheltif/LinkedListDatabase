@@ -15,14 +15,11 @@ public class Database {
     private static final int FAILURE = 1;
     private static final int SUCCESS = 0;
 
-    private Table<Employee> faculty;
-    private Table<Employee> admin;
+    private Table<Employee> faculty = new Table<>("Faculty");
+    private Table<Employee> admin = new Table<>("Admin");
     private Scanner input;
 
     public static void main(String[] args) {
-
-        Table<Employee> faculty = new Table<>("Faculty");
-        Table<Employee> admin = new Table<>("Admin");
 
         Database db = new Database();
         db.go();
@@ -107,23 +104,35 @@ public class Database {
         } // end while loop
     } // end go method
 
+    /**
+     * Populates a single table in our database with records from a file.
+     *
+     * @param file The file to populate the records from.
+     * @param table The table to insert the records into.
+     */
     private void populateDB(File file, Table<Employee> table) {
 
         try {
             this.input = new Scanner(file);
 
-            while(input.hasNextLine()) {
-
-                String lastName  = input.next();
+            while(input.hasNext()) {
+                String lastName = input.next();
+                //System.out.println(lastName);
                 String firstName = input.next();
-                String status    = input.next();
-                String id        = Integer.toString(input.nextInt());
-                String phone     = Integer.toString(input.nextInt());
-                String division  = input.next();
-                String years     = Integer.toString(input.nextInt());
+                //System.out.println(firstName);
+                String status = input.next();
+                //System.out.println(status);
+                String id = Integer.toString(input.nextInt());
+                //System.out.println(id);
+                String phone = Long.toString(input.nextLong());
+                //System.out.println(phone);
+                String division = Integer.toString(input.nextInt());
+                //System.out.println(division);
+                String years = Integer.toString(input.nextInt());
+                //System.out.println(years + "\n");
 
-                table.insert(new Employee(lastName,
-                        firstName, status, id, phone, division, years));
+                table.insert(new Employee(lastName, firstName, status,
+                        id, phone, division, years));
 
             } // end while
 
