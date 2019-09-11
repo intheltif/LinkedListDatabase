@@ -8,11 +8,24 @@ public class Person {
 
     /** An enumeration of marital statuses a person can have */
     private enum Status {
-        S,
-        M,
-        D,
-        W
+
+        S("Single"),
+        M("Married"),
+        D("Divorced"),
+        W("Widowed");
+
+        private final String status;
+
+        private Status(String status) {
+            this.status = status;
+        }
+
+        public String getStatus() {
+            return this.status;
+        }
     };
+
+    private enum nothing {;};
 
     /** First Name */
     private String first;

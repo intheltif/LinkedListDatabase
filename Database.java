@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -13,63 +15,42 @@ public class Database {
     private static final int FAILURE = 1;
     private static final int SUCCESS = 0;
 
+    private Table<Employee> faculty;
+    private Table<Employee> admin;
+    private Scanner input;
+
     public static void main(String[] args) {
 
-
-        System.out.println("Auto-populating database...");
-        File facultyData = null;
-        File adminData = null;
         Table<Employee> faculty = new Table<>("Faculty");
         Table<Employee> admin = new Table<>("Admin");
+
+        Database db = new Database();
+        db.go();
+
+        System.exit(SUCCESS);
+    } // end main method;
+
+    private void go() {
+        File facultyData = null;
+        File adminData = null;
 
         try {
             facultyData = new File("./faculty.txt");
             adminData = new File("./admin.txt");
         } catch (NullPointerException npe) {
-            System.out.println("Unable to populate database. Exiting...");
+            System.out.println("Unable to find files to populate database with. Exiting...");
             System.exit(FAILURE);
         }
 
-        try {
-            Scanner input = new Scanner(facultyData);
+        System.out.println("Auto-populating database...");
 
-            while(input.hasNextLine()) {
-                String[] lineArray = input.nextLine().split("\\s+");
-                String lastName = lineArray[0];
-                String firstName = lineArray[1];
-                String status = lineArray[2];
-                String id  = lineArray[3];
-                String phone = lineArray[4];
-                String division = lineArray[5];
-                String years = lineArray[6];
-                faculty.insert(new Employee(lastName, firstName, status, id, phone, division, years));
-            }
+        populateDB(facultyData, this.faculty);
+        populateDB(adminData, this.admin);
 
-        } catch (FileNotFoundException fnfe) {
-            System.out.println("Unable to read faculty data into database. Exiting...");
-            System.exit(FAILURE);
-        }
-
+        int userSelection = -1;
         boolean incorrectChoice = true;
-        // ============= TESTING IF LINKED LIST WORKS ==================
+        this.input = new Scanner(System.in);
 
-/*
-
-        Table<Employee> faculty = new Table<>("Faculty");
-        faculty.insert(new Employee("100", "John", "Doe", "MARRIED", "828-227-9999", "faculty", "12", "Comp Sci"));
-        faculty.insert(new Employee("200", "Jane", "Doe", "MARRIED", "828-227-9922", "faculty", "12", "Comp Sci"));
-        faculty.insert(new Employee("300", "Jimmy", "Buffet", "DIVORCED", "828-888-9292", "faculty", "12", "Comp Sci"));
-        faculty.insert(new Employee("400", "Fred", "Flintstone", "SINGLE", "828-456-4567", "faculty", "12", "Comp Sci"));
-
-        System.out.println(faculty.toString());
-
-*/
-
-        // ============= TESTING IF LINKED LIST WORKS ==================
-
-
-        System.out.println(faculty.toString());
-/*
         while(incorrectChoice) {
             System.out.println("Please make a selection:");
             System.out.println("\t0) Quit");
@@ -80,9 +61,15 @@ public class Database {
             System.out.println("\t5) Remove");
             System.out.println("\t6) Print both tables");
             System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            int userSelection = input.nextInt();
 
-        // Main menu
+            try {
+                userSelection = input.nextInt();
+            } catch (InputMismatchException) {
+                incorrectChoice = true;
+                continue;
+            }
+
+            // Main menu
             switch (userSelection) {
                 case 0:
                     // Exit the program
@@ -116,9 +103,42 @@ public class Database {
                     incorrectChoice = true;
                     break;
             } // end switch statement
-        }
-*/
-        System.exit(SUCCESS);
-    } // end main method;
+        } // end while loop
+    } // end go method
+
+    private void populateDB(File file, Table<Employee> table) {
+
+        try {
+            this.input = new Scanner(file);
+
+            while(input.hasNextLine()) {
+
+                String lastName = input.next();
+                String firstName = input.next();
+                String status = input.next();
+                String id  = Integer.toString(input.nextInt());
+                String phone = Integer.toString(input.nextInt());
+                String division = input.next();
+                String years = Integer.toString(input.nextInt());
+
+                table.insert(new Employee(lastName,
+                        firstName, status, id, phone, division, years));
+
+            } // end while
+
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Unable to read faculty data into database. " +
+                    "Exiting...");
+            System.exit(FAILURE);
+        } catch (InputMismatchException ime) {
+            System.out.println("Phone, ID, Division, and Years must be an " +
+                    "integer. Unable to populate database. Exiting...");
+            System.exit(FAILURE);
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Incorrect file format. Unable to populate " +
+                    "database. Exiting...");
+            System.exit(FAILURE);
+        } // end try-catch
+    } // end populateDB method.
 
 } // end Database class

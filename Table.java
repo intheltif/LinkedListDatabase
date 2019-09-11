@@ -174,6 +174,62 @@ public class Table<T extends AttributeInterface> {
 
     } // end remove method
 
+    /**
+     * Performs the intersection of of this table with another table.
+     *
+     * @param table The other table to perform the intersect operation on.
+     * @return The newly created table containing the intersection of this table and the other.
+     */
+    public Table<T> intersect(Table<T> table) {
+        Table<T> newTable = new Table<>("Intersection");
+
+        // TODO perform intersection
+
+        return newTable;
+    } // end difference method.
+
+    /**
+     * Performs the difference of of this table with another table.
+     *
+     * @param table The other table to perform the difference operation on.
+     * @return The newly created table containing the difference of this table and the other.
+     */
+    public Table<T> difference(Table<T> table) {
+        Table<T> newTable = new Table<>("Difference");
+
+        // TODO perform difference
+
+        return newTable;
+    } // end difference method.
+
+    /**
+     * Performs the union of of this table with another table.
+     *
+     * @param table The other table to perform the union operation on.
+     * @return The newly created table containing the union of this table and the other.
+     */
+    public Table<T> union(Table<T> table) {
+        Table<T> newTable = new Table<>("Union");
+
+        // TODO perform union
+
+        return newTable;
+    } // end union method.
+
+    /**
+     * Performs the selection of of this table with another table.
+     *
+     * @param table The other table to perform the selection operation on.
+     * @return The newly created table containing the selection of this table and the other.
+     */
+    public Table<T> selection(Table<T> table) {
+        Table<T> newTable = new Table<>("Selection");
+
+        // TODO perform selection
+
+        return newTable;
+    } // end selection method.
+
     public String toString() {
         Node current = head;
         StringBuilder returnString = new StringBuilder();
