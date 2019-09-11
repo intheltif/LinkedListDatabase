@@ -176,12 +176,12 @@ public class Table<T extends AttributeInterface> {
 
     public String toString() {
         Node current = head;
-        String returnString = "";
+        StringBuilder returnString = new StringBuilder();
         while(current != null) {
-            returnString = returnString + "\n" + current.data.toString();
+            returnString.append("\n").append(current.data.toString());
             current = current.next;
         }
-        return returnString;
+        return returnString.toString();
     }
 
 
