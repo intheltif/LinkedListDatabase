@@ -103,9 +103,11 @@ public class Table<T extends AttributeInterface> {
     // Actual methods that do something
     
     /**
-     * Adds a new record to the end of table. If the table is empty, sets the head and the tail
-     * references to the new node. Otherwise it changes the current tail to point to the newly
-     * created Node and moves the tail to the new Node.
+     * Adds a new record to the end of table. If the table is empty, sets the
+     * head and the tail references to the new node. Otherwise it changes the
+     * current tail to point to the newly created Node and moves the tail to
+     * the new Node.
+     *
      * TODO: Maybe remove a bit of documentaion explaining how it works.
      *
      * @param data The data for the new row in the table.
@@ -178,7 +180,8 @@ public class Table<T extends AttributeInterface> {
      * Performs the intersection of of this table with another table.
      *
      * @param table The other table to perform the intersect operation on.
-     * @return The newly created table containing the intersection of this table and the other.
+     * @return The newly created table containing the intersection of this
+     * table and the other.
      */
     public Table<T> intersect(Table<T> table) {
         Table<T> newTable = new Table<>("Intersection");
@@ -192,7 +195,8 @@ public class Table<T extends AttributeInterface> {
      * Performs the difference of of this table with another table.
      *
      * @param table The other table to perform the difference operation on.
-     * @return The newly created table containing the difference of this table and the other.
+     * @return The newly created table containing the difference of this
+     * table and the other.
      */
     public Table<T> difference(Table<T> table) {
         Table<T> newTable = new Table<>("Difference");
@@ -206,7 +210,8 @@ public class Table<T extends AttributeInterface> {
      * Performs the union of of this table with another table.
      *
      * @param table The other table to perform the union operation on.
-     * @return The newly created table containing the union of this table and the other.
+     * @return The newly created table containing the union of this table and
+     * the other.
      */
     public Table<T> union(Table<T> table) {
         Table<T> newTable = new Table<>("Union");
@@ -220,7 +225,8 @@ public class Table<T extends AttributeInterface> {
      * Performs the selection of of this table with another table.
      *
      * @param table The other table to perform the selection operation on.
-     * @return The newly created table containing the selection of this table and the other.
+     * @return The newly created table containing the selection of this table
+     * and the other.
      */
     public Table<T> selection(Table<T> table) {
         Table<T> newTable = new Table<>("Selection");

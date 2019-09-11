@@ -38,7 +38,8 @@ public class Database {
             facultyData = new File("./faculty.txt");
             adminData = new File("./admin.txt");
         } catch (NullPointerException npe) {
-            System.out.println("Unable to find files to populate database with. Exiting...");
+            System.out.println("Unable to find files to populate database. " +
+                    "Exiting...");
             System.exit(FAILURE);
         }
 
@@ -64,7 +65,7 @@ public class Database {
 
             try {
                 userSelection = input.nextInt();
-            } catch (InputMismatchException) {
+            } catch (InputMismatchException ime) {
                 incorrectChoice = true;
                 continue;
             }
@@ -113,13 +114,13 @@ public class Database {
 
             while(input.hasNextLine()) {
 
-                String lastName = input.next();
+                String lastName  = input.next();
                 String firstName = input.next();
-                String status = input.next();
-                String id  = Integer.toString(input.nextInt());
-                String phone = Integer.toString(input.nextInt());
-                String division = input.next();
-                String years = Integer.toString(input.nextInt());
+                String status    = input.next();
+                String id        = Integer.toString(input.nextInt());
+                String phone     = Integer.toString(input.nextInt());
+                String division  = input.next();
+                String years     = Integer.toString(input.nextInt());
 
                 table.insert(new Employee(lastName,
                         firstName, status, id, phone, division, years));
