@@ -186,8 +186,6 @@ public class Table<T extends AttributeInterface> {
     public Table<T> intersect(Table<T> table) {
         Table<T> newTable = new Table<>("Intersection");
 
-        // TODO perform intersection
-
         return newTable;
     } // end difference method.
 
@@ -216,7 +214,19 @@ public class Table<T extends AttributeInterface> {
     public Table<T> union(Table<T> table) {
         Table<T> newTable = new Table<>("Union");
 
-        // TODO perform union
+        // TODO instead of how we are currently doing it, do a deepcopy of this
+        //      table and "table" and connect the tail of this table to the
+        //      head of "table"
+        currentNode = head;
+        while(currentNode != null) {
+            newTable.insert(this.currentNode.data);
+            currentNode = currentNode.next;
+        }
+        currentNode = table.getHead();
+        while(currentNode != null) {
+            newTable.insert(currentNode.data);
+            currentNode = currentNode.next;
+        }
 
         return newTable;
     } // end union method.

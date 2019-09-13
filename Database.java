@@ -116,6 +116,7 @@ public class Database {
             this.input = new Scanner(file);
 
             while(input.hasNext()) {
+                //TODO Remove println's here
                 String lastName = input.next();
                 //System.out.println(lastName);
                 String firstName = input.next();

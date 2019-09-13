@@ -107,6 +107,20 @@ public class Employee implements AttributeInterface  {
         // TODO finish makeCopy method that makes a deep copy.
     }
 
+    /**
+     * Figures out if one Employee is equal to another based on the ID.
+     *
+     * @return true if this is the same Employee, false if not.
+     */
+    public boolean equals(Object other) {
+        Employee otherEmployee = (Employee)other;
+        boolean isEqual = false;
+        if(this.id == otherEmployee.id) {
+            isEqual = true;
+        }
+        return isEqual;
+    } // end equals method
+
     @Override
     public String toString() {
         StringBuilder builtString = new StringBuilder();
