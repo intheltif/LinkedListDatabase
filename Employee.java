@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Employee implements AttributeInterface  {
 
     /** Dashes to separate each employee in our toSting */
-    private static final String DASHES = repeatChar('-', 80);
+    private static final String DASHES = repeatChar('-', 70);
 
     /** Identification number */
     private String id;

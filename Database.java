@@ -16,7 +16,7 @@ public class Database {
     private static final int FAILURE = 1;
     private static final int SUCCESS = 0;
 
-    private static final String EQUALS = repeatChar('=', 40);
+    private static final String EQUALS = repeatChar('=', 35);
 
     private Table<Employee> faculty = new Table<>("Faculty");
     private Table<Employee> admin = new Table<>("Admin");
