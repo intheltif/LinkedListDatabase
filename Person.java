@@ -23,9 +23,7 @@ public class Person {
         public String getStatus() {
             return this.status;
         }
-    };
-
-    private enum nothing {;};
+    }
 
     /** First Name */
     private String first;
@@ -52,7 +50,8 @@ public class Person {
     } // end Person constructor
 
     /**
-     * Change the first name of this person.
+     * Change the first name of this person. Used in the case that a person
+     * has a legal name change.
      *
      * @param firstName This person's new first name.
      */
