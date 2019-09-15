@@ -101,8 +101,8 @@ public class Person {
      *
      * @return The marital status of this person.
      */
-    public Status getStatus() {
-        return this.status;
+    public String getStatus() {
+        return this.status.getStatus();
     } // end getStatus method
 
     /**

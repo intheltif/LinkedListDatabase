@@ -177,20 +177,24 @@ public class Table<T extends AttributeInterface> {
     } // end remove method
 
     /**
-     * Performs the intersection of of this table with another table.
+     * Creates a new table comprised of nodes having a value for a specific
+     * attribute, created from two tables.
      *
+     * @param attribute The attribute that we are checking the specific value of.
+     * @param value The value of the attribute we are checking.
      * @param table The other table to perform the intersect operation on.
      * @return The newly created table containing the intersection of this
      * table and the other.
      */
-    public Table<T> intersect(Table<T> table) {
+    public Table<T> intersect(String attribute, String value, Table<T> table) {
         Table<T> newTable = new Table<>("Intersection");
 
         return newTable;
-    } // end difference method.
+    } // end intersect method.
 
     /**
-     * Performs the difference of of this table with another table.
+     * Creates a new table comprised of nodes in <em>this</em> table, but not
+     * in <em>table</em>.
      *
      * @param table The other table to perform the difference operation on.
      * @return The newly created table containing the difference of this
@@ -205,7 +209,8 @@ public class Table<T extends AttributeInterface> {
     } // end difference method.
 
     /**
-     * Performs the union of of this table with another table.
+     * Creates a new table comprised of nodes that occur in both tables.
+     * Checks for duplicates and does not add them to the new table.
      *
      * @param table The other table to perform the union operation on.
      * @return The newly created table containing the union of this table and
@@ -232,14 +237,16 @@ public class Table<T extends AttributeInterface> {
     } // end union method.
 
     /**
-     * Performs the selection of of this table with another table.
+     * Creates a new table comprised of nodes having a value for a specific
+     * attribute.
      *
-     * @param table The other table to perform the selection operation on.
+     * @param attribute The attribute that we are checking the specific value of.
+     * @param value The value of the attribute we are checking.
      * @return The newly created table containing the selection of this table
      * and the other.
      */
-    public Table<T> selection(Table<T> table) {
-        Table<T> newTable = new Table<>("Selection");
+    public Table<T> selection(String attribute, String value) {
+        Table<T> newTable = new Table<>("Select");
 
         // TODO perform selection
 

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Represents an employee in our database.
  *
@@ -5,6 +7,9 @@
  * @version 09/18/2019
  */
 public class Employee implements AttributeInterface  {
+
+    /** Dashes to separate each employee in our toSting */
+    private static final String DASHES = repeatChar('-', 80);
 
     /** Identification number */
     private String id;
@@ -21,6 +26,9 @@ public class Employee implements AttributeInterface  {
     /** Personal Information */
     private Person person;
 
+    /** Department belonged to */
+    private String department;
+
     /**
      * The constructor for a person object.
      */
@@ -31,13 +39,15 @@ public class Employee implements AttributeInterface  {
             String id,
             String phone,
             String division,
-            String years) {
+            String years,
+            String deparment) {
 
         this.id = id;
         this.phone = phone;
         this.division = division;
         this.years = years;
         this.person = new Person(firstName, lastName, status);
+        this.department = deparment;
 
     } // end constructor
 
@@ -108,29 +118,48 @@ public class Employee implements AttributeInterface  {
     }
 
     /**
-     * Figures out if one Employee is equal to another based on the ID.
+     * Derterminese wheter an Employee is equal to another based on their ID.
      *
      * @return true if this is the same Employee, false if not.
      */
     public boolean equals(Object other) {
         Employee otherEmployee = (Employee)other;
         boolean isEqual = false;
+
         if(this.id == otherEmployee.id) {
             isEqual = true;
         }
+
         return isEqual;
     } // end equals method
+
+    /**
+     * Creates a string of size <em>length</em> of the same character. Used for
+     * printing multiple of the same character to separate pieces of data.
+     *
+     * @param character The character to print.
+     * @param length The amount of times that character should appear in the final
+     *               string.
+     * @return A String containing <em>length</em> number of characters.
+     */
+    private static final String repeatChar(char character, int length) {
+        char[] data = new char[length];
+        Arrays.fill(data, character);
+        return new String(data);
+    } // end repeatChar method.
 
     @Override
     public String toString() {
         StringBuilder builtString = new StringBuilder();
 
-        builtString.append(this.id + "\t");
-        builtString.append(this.person.getFirst() + "\t");
-        builtString.append(this.person.getLast() + "\t");
-        builtString.append(this.phone + "\t");
-        builtString.append(this.division + "\t");
-        builtString.append(this.years + "\t");
+        builtString.append("Employee(" + this.id + ") ");
+        builtString.append(this.person.getLast() + ", ");
+        builtString.append(this.person.getFirst() + ": ");
+        builtString.append(this.person.getStatus() + "\n");
+        builtString.append("\tRecord: " + this.years + " years in division ");
+        builtString.append("[" +this.years + "] -- Dept: " + this.department);
+        builtString.append("\n" + DASHES);
+
         return builtString.toString();
     }
 

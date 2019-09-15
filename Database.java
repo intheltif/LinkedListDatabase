@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -14,6 +15,8 @@ public class Database {
 
     private static final int FAILURE = 1;
     private static final int SUCCESS = 0;
+
+    private static final String EQUALS = repeatChar('=', 40);
 
     private Table<Employee> faculty = new Table<>("Faculty");
     private Table<Employee> admin = new Table<>("Admin");
@@ -95,6 +98,16 @@ public class Database {
                 case 6:
                     // Print both tables
                     System.out.println("Printing both tables.");
+                    System.out.printf("%s %s %s" , EQUALS,
+                            this.faculty.getTitle(), EQUALS);
+                    System.out.println(this.faculty.toString());
+                    System.out.printf("%s %s %s\n\n", EQUALS,
+                            this.faculty.getTitle(), EQUALS);
+                    System.out.printf("%s %s %s" , EQUALS,
+                            this.admin.getTitle(), EQUALS);
+                    System.out.println(this.admin.toString());
+                    System.out.printf("%s %s %s\n\n", EQUALS,
+                            this.admin.getTitle(), EQUALS);
                     break;
                 default:
                     System.out.println("Invalid choice. Try again.");
@@ -133,7 +146,7 @@ public class Database {
                 //System.out.println(years + "\n");
 
                 table.insert(new Employee(lastName, firstName, status,
-                        id, phone, division, years));
+                        id, phone, division, years, table.getTitle()));
 
             } // end while
 
@@ -151,5 +164,21 @@ public class Database {
             System.exit(FAILURE);
         } // end try-catch
     } // end populateDB method.
+
+
+    /**
+     * Creates a string of size <em>length</em> of the same character. Used for
+     * printing multiple of the same character to separate pieces of data.
+     *
+     * @param character The character to print.
+     * @param length The amount of times that character should appear in the final
+     *               string.
+     * @return A String containing <em>length</em> number of characters.
+     */
+    private static final String repeatChar(char character, int length) {
+        char[] data = new char[length];
+        Arrays.fill(data, character);
+        return new String(data);
+    } // end repeatChar method.
 
 } // end Database class
