@@ -53,15 +53,8 @@ public class Database {
         this.input = new Scanner(System.in);
 
         while(incorrectChoice) {
-            System.out.println("Please make a selection:");
-            System.out.println("\t0) Quit");
-            System.out.println("\t1) Intersect");
-            System.out.println("\t2) Difference");
-            System.out.println("\t3) Union");
-            System.out.println("\t4) Select");
-            System.out.println("\t5) Remove");
-            System.out.println("\t6) Print both tables");
-            System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+            printMainMenu();
 
             try {
                 userSelection = input.nextInt();
@@ -70,52 +63,90 @@ public class Database {
                 continue;
             }
 
-            // Main menu
-            switch (userSelection) {
-                case 0:
-                    // Exit the program
-                    System.out.println("Quitting...");
-                    System.exit(0);
-                case 1:
-                    System.out.println("Performing intersect...");
-                    break;
-                case 2:
-                    // Do Difference
-                    System.out.println("Performing difference...");
-                    break;
-                case 3:
-                    // Do Union
-                    System.out.println("Performing union...");
-                    break;
-                case 4:
-                    // Do Select
-                    System.out.println("Performing select...");
-                    break;
-                case 5:
-                    // Do Remove
-                    System.out.println("Performing remove...");
-                    break;
-                case 6:
-                    // Print both tables
-                    System.out.println("Printing both tables.");
-                    System.out.printf("%s %s %s" , EQUALS,
-                            this.faculty.getTitle(), EQUALS);
-                    System.out.println(this.faculty.toString());
-                    System.out.printf("%s %s %s\n\n", EQUALS,
-                            this.faculty.getTitle(), EQUALS);
-                    System.out.printf("%s %s %s" , EQUALS,
-                            this.admin.getTitle(), EQUALS);
-                    System.out.println(this.admin.toString());
-                    System.out.printf("%s %s %s\n\n", EQUALS,
-                            this.admin.getTitle(), EQUALS);
-                    break;
-                default:
-                    System.out.println("Invalid choice. Try again.");
-                    incorrectChoice = true;
-                    break;
-            } // end switch statement
+            incorrectChoice = performSelection(userSelection);
         } // end while loop
+        input.close();
     } // end go method
+
+    /**
+     * Prints the main menu for the database to stdout.
+     */
+    private void printMainMenu() {
+        System.out.println("Please make a selection:");
+        System.out.println("\t0) Quit");
+        System.out.println("\t1) Intersect");
+        System.out.println("\t2) Difference");
+        System.out.println("\t3) Union");
+        System.out.println("\t4) Select");
+        System.out.println("\t5) Remove");
+        System.out.println("\t6) Print both tables");
+        System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    } // end printMainMenu method
+
+    /**
+     * Performs the main menu item selected by the user.
+     *
+     * @param selection The main menu number input by the user.
+     * @return True if the selection is valid, allowing another choice from
+     *         the main menu.
+     */
+    private boolean performSelection(int selection) {
+        boolean isValidChoice = true;
+        switch (selection) {
+            case 0:
+                // Exit the program
+                System.out.println("Quitting...");
+                System.exit(0);
+            case 1:
+                System.out.println("Performing intersect...");
+                break;
+            case 2:
+                // Do Difference
+                System.out.println("Performing difference...");
+                break;
+            case 3:
+                // Do Union
+                System.out.println("Performing union...");
+                break;
+            case 4:
+                // Do Select
+                System.out.println("Performing select...");
+                break;
+            case 5:
+                // Do Remove
+                System.out.println("Performing remove...");
+                this.input = new Scanner(System.in);
+                String chosenTable;
+                String idToRemove;
+                try {
+                    System.out.print("Enter Table (F/A) >> ");
+                    chosenTable = input.next();
+                    System.out.print("Enter Value >> ");
+                    idToRemove = Integer.toString(input.nextInt());
+                } catch (InputMismatchException ime) {
+                    System.out.println("Incorrect format. Exiting to menu...");
+                    break;
+                }
+                if(chosenTable.toLowerCase() == "f") {
+                    this.faculty.remove(idToRemove);
+                } else if(chosenTable.toLowerCase() == "a") {
+                    this.admin.remove(idToRemove);
+                } else {
+                    System.out.println("Please choose an existing table. " +
+                            "(F)aculty or (A)dmin...");
+                }
+                input.close();
+                break;
+            case 6:
+                printTable(this.faculty);
+                printTable(this.admin);
+                break;
+            default:
+                System.out.println("Invalid choice. Try again.");
+                break;
+        } // end switch statement
+        return isValidChoice;
+    } // end performSelection method.
 
     /**
      * Populates a single table in our database with records from a file.
@@ -131,25 +162,18 @@ public class Database {
             while(input.hasNext()) {
                 //TODO Remove println's here
                 String lastName = input.next();
-                //System.out.println(lastName);
                 String firstName = input.next();
-                //System.out.println(firstName);
                 String status = input.next();
-                //System.out.println(status);
                 String id = Integer.toString(input.nextInt());
-                //System.out.println(id);
                 String phone = Long.toString(input.nextLong());
-                //System.out.println(phone);
                 String division = Integer.toString(input.nextInt());
-                //System.out.println(division);
                 String years = Integer.toString(input.nextInt());
-                //System.out.println(years + "\n");
 
                 table.insert(new Employee(lastName, firstName, status,
                         id, phone, division, years, table.getTitle()));
 
             } // end while
-
+            input.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("Unable to read faculty data into database. " +
                     "Exiting...");
@@ -164,6 +188,19 @@ public class Database {
             System.exit(FAILURE);
         } // end try-catch
     } // end populateDB method.
+
+    /**
+     * Prints out the specified table in a nicely formatted manner.
+     *
+     * @param table The table to print.
+     */
+    private void printTable(Table<Employee> table) {
+
+        // Print the table with correct formatting
+        System.out.printf("%s%s%s" , EQUALS, table.getTitle(), EQUALS);
+        System.out.println(this.faculty.toString());
+        System.out.printf("%s%s%s\n\n", EQUALS, table.getTitle(), EQUALS);
+    }
 
 
     /**
