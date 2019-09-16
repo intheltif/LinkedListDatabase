@@ -12,16 +12,31 @@ import java.util.Scanner;
  * @version 09/18/2019
  */
 public class Database {
-
+    /** A constant to represent a failed exit. */
     private static final int FAILURE = 1;
+
+    /** A constant to represent a successful exit. */
     private static final int SUCCESS = 0;
 
+    /** A constant to represent a row of equals to separate data. */
     private static final String EQUALS = repeatChar('=', 35);
 
+    /** Table holding information about faculty staff. */
     private Table<Employee> faculty = new Table<>("Faculty");
+
+    /** Table holding information about administration staff. */
     private Table<Employee> admin = new Table<>("Admin");
+
+    /** The scanner to read input into the database */
     private Scanner input;
 
+    /**
+     * The main entry point into the program. To avoid having to make all
+     * methods static, this main method lets go() do all of the work of calling
+     * non-static methods.
+     *
+     * @param args The command line arguments. Passed down to the go() method.
+     */
     public static void main(String[] args) {
 
         Database db = new Database();
@@ -30,6 +45,10 @@ public class Database {
         System.exit(SUCCESS);
     } // end main method;
 
+    /**
+     * The method that essentially runs our database. It calls all of the
+     * methods needed to populate and run the functionality of the database.
+     */
     private void go() {
         File facultyData = null;
         File adminData = null;
@@ -210,6 +229,7 @@ public class Database {
      * @param character The character to print.
      * @param length The amount of times that character should appear in the final
      *               string.
+     *
      * @return A String containing <em>length</em> number of characters.
      */
     private static final String repeatChar(char character, int length) {
