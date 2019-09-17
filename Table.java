@@ -99,9 +99,7 @@ public class Table<T extends AttributeInterface> {
     public String getTitle() {
         return this.title;
     } // end getTail method
-    
-    // Actual methods that do something
-    
+
     /**
      * Adds a new record to the end of table. If the table is empty, sets the
      * head and the tail references to the new node. Otherwise it changes the
@@ -116,10 +114,11 @@ public class Table<T extends AttributeInterface> {
 
         Node newNode = new Node(data);
 
+        // If head is null then the list is empty.
         if(head == null) {
             head = newNode;
             tail = newNode;
-        } else {
+        } else { // otherwise, just add to the list.
             this.tail.next = newNode;
             this.tail = newNode;
         }
@@ -138,25 +137,24 @@ public class Table<T extends AttributeInterface> {
         Node temp = head;
         Node prev = null;
 
-        // If head node itself holds the key to be deleted
+        // If the id is the first node
         if (temp != null && temp.data.check("id", id)) {
             head = temp.next; // Changed head
             return;
         }
 
-        // Search for the key to be deleted, keep track of the
-        // previous node as we need to change temp.next
+        // Search for the id to be removed, keep track of where we are in list
         while (temp != null && !(temp.data.check("id", id))) {
             prev = temp;
             temp = temp.next;
         }
 
-        // If key was not present in linked list
+        // If id was not found
         if (temp == null) {
             return;
         }
 
-        // Unlink the node from linked list
+        // Unlink the node from linked list thus removing it.
         prev.next = temp.next;
     } // end remove method
 
@@ -172,6 +170,24 @@ public class Table<T extends AttributeInterface> {
      */
     public Table<T> intersect(String attribute, String value, Table<T> table) {
         Table<T> newTable = new Table<>("Intersection");
+        Node temp = head;
+
+        // First check this table.
+        while(temp != null) {
+            if(temp.data.check(attribute, value)) {
+                newTable.insert(temp.data);
+            }
+            temp = temp.next;
+        }
+
+        // Then check the other table.
+        temp = table.getHead();
+        while(temp != null) {
+            if(temp.data.check(attribute, value)) {
+                newTable.insert(temp.data);
+            }
+            temp = temp.next;
+        }
 
         return newTable;
     } // end intersect method.
@@ -203,18 +219,22 @@ public class Table<T extends AttributeInterface> {
     public Table<T> union(Table<T> table) {
         Table<T> newTable = new Table<>("Union");
 
-        // TODO instead of how we are currently doing it, do a deepcopy of this
-        //      table and "table" and connect the tail of this table to the
-        //      head of "table"
-        currentNode = head;
-        while(currentNode != null) {
-            newTable.insert(this.currentNode.data);
-            currentNode = currentNode.next;
+        Node temp = head;
+
+        // Add everything from this list
+        while(temp != null) {
+            newTable.insert(temp.data);
+            temp = temp.next;
         }
-        currentNode = table.getHead();
-        while(currentNode != null) {
-            newTable.insert(currentNode.data);
-            currentNode = currentNode.next;
+
+        temp = table.getHead();
+
+        // Insert everything from the other list, except duplicates.
+        while(temp != null) {
+            if(table.contains(temp.data)) {
+                newTable.insert(temp.data);
+            }
+            temp = temp.next;
         }
 
         return newTable;
@@ -231,12 +251,42 @@ public class Table<T extends AttributeInterface> {
      */
     public Table<T> selection(String attribute, String value) {
         Table<T> newTable = new Table<>("Select");
+        Node temp = head;
 
-        // TODO perform selection
+        while(temp != null) {
+            if(temp.data.check(attribute, value)) {
+                newTable.insert(temp.data);
+            }
+            temp = temp.next;
+        }
 
         return newTable;
     } // end selection method.
 
+    /**
+     * Determines whether a table contains a certain piece of data.
+     *
+     * @return True if the table contains the data we're searching for.
+     */
+    private boolean contains(T data) {
+        boolean doesContain = false;
+        Node temp = head;
+
+        while(temp != null) {
+            if(temp.data.equals(data)) {
+                doesContain = true;
+            }
+            temp = temp.next;
+        }
+
+        return doesContain;
+    }
+
+    /**
+     * Returns this table as a nicely formatted String to be displayed.
+     *
+     * @return A String containing all nodes in this list, formatted nicely.
+     */
     public String toString() {
         Node current = head;
         StringBuilder returnString = new StringBuilder();

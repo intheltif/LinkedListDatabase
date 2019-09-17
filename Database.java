@@ -140,6 +140,18 @@ public class Database {
                 try {
                     System.out.print("Enter Table (F/A) >> ");
                     chosenTable = input.next();
+                } catch (InputMismatchException ime) {
+                    System.out.println("Incorrect format. Exiting to menu...");
+                    break;
+                }
+                if(!(chosenTable.toLowerCase().equals("f") ||
+                        chosenTable.toLowerCase().equals("a"))) {
+                    System.out.println("Please choose an existing table. " +
+                            "(F)aculty or (A)dmin...");
+                    break;
+                }
+
+                try {
                     System.out.print("Enter Value >> ");
                     idToRemove = Integer.toString(input.nextInt());
                 } catch (InputMismatchException ime) {
