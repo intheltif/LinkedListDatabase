@@ -64,8 +64,8 @@ public class Database {
 
         System.out.println("Auto-populating database...");
 
-        populateDB(facultyData, this.faculty);
         populateDB(adminData, this.admin);
+        populateDB(facultyData, this.faculty);
 
         int userSelection = -1;
         boolean incorrectChoice = true;
@@ -84,7 +84,7 @@ public class Database {
 
             incorrectChoice = performSelection(userSelection);
         } // end while loop
-        input.close();
+        this.input.close();
     } // end go method
 
     /**
@@ -146,19 +146,18 @@ public class Database {
                     System.out.println("Incorrect format. Exiting to menu...");
                     break;
                 }
-                if(chosenTable.toLowerCase() == "f") {
+                if(chosenTable.toLowerCase().equals("f")) {
                     this.faculty.remove(idToRemove);
-                } else if(chosenTable.toLowerCase() == "a") {
+                } else if(chosenTable.toLowerCase().equals("a")) {
                     this.admin.remove(idToRemove);
                 } else {
                     System.out.println("Please choose an existing table. " +
                             "(F)aculty or (A)dmin...");
                 }
-                input.close();
                 break;
             case 6:
-                printTable(this.faculty);
                 printTable(this.admin);
+                printTable(this.faculty);
                 break;
             default:
                 System.out.println("Invalid choice. Try again.");
@@ -192,7 +191,7 @@ public class Database {
                         id, phone, division, years, table.getTitle()));
 
             } // end while
-            input.close();
+            this.input.close();
         } catch (FileNotFoundException fnfe) {
             System.out.println("Unable to read faculty data into database. " +
                     "Exiting...");
@@ -217,7 +216,7 @@ public class Database {
 
         // Print the table with correct formatting
         System.out.printf("%s%s%s" , EQUALS, table.getTitle(), EQUALS);
-        System.out.println(this.faculty.toString());
+        System.out.println(table.toString());
         System.out.printf("%s%s%s\n\n", EQUALS, table.getTitle(), EQUALS);
     }
 

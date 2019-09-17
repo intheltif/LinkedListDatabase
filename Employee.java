@@ -65,7 +65,7 @@ public class Employee implements AttributeInterface  {
 
         switch(attribute) {
             case "id":
-                if(this.id.equals(value)) {
+                if(Integer.parseInt(this.id) == Integer.parseInt(value)) {
                     hasAttribute = true;
                 }
                 break;
