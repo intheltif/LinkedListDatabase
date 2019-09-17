@@ -169,7 +169,8 @@ public class Table<T extends AttributeInterface> {
      * table and the other.
      */
     public Table<T> intersect(String attribute, String value, Table<T> table) {
-        Table<T> newTable = new Table<>("Intersection");
+        Table<T> newTable = new Table<>(this.getTitle() + ", "
+                + table.getTitle());
         Node temp = head;
 
         // First check this table.
@@ -201,7 +202,8 @@ public class Table<T extends AttributeInterface> {
      * table and the other.
      */
     public Table<T> difference(Table<T> table) {
-        Table<T> newTable = new Table<>("Difference");
+        Table<T> newTable = new Table<>(this.getTitle() + ", "
+                + table.getTitle());
 
         // TODO perform difference
 
@@ -217,7 +219,8 @@ public class Table<T extends AttributeInterface> {
      * the other.
      */
     public Table<T> union(Table<T> table) {
-        Table<T> newTable = new Table<>("Union");
+        Table<T> newTable = new Table<>(this.getTitle() + ", "
+                + table.getTitle());
 
         Node temp = head;
 
@@ -250,7 +253,7 @@ public class Table<T extends AttributeInterface> {
      * and the other.
      */
     public Table<T> selection(String attribute, String value) {
-        Table<T> newTable = new Table<>("Select");
+        Table<T> newTable = new Table<>(this.title);
         Node temp = head;
 
         while(temp != null) {

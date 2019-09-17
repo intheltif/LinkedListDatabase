@@ -111,6 +111,7 @@ public class Database {
      */
     private boolean performSelection(int selection) {
         boolean isValidChoice = true;
+        String chosenTable = null;
         switch (selection) {
             case 0:
                 // Exit the program
@@ -130,12 +131,48 @@ public class Database {
             case 4:
                 // Do Select
                 System.out.println("Performing select...");
+
+                this.input = new Scanner(System.in);
+                String attr = "";
+                String value = "";
+                try {
+                    System.out.print("Enter Table (F/A) >> ");
+                    chosenTable = input.next();
+                } catch (InputMismatchException ime) {
+                    System.out.println("Incorrect format. Exiting to menu...");
+                    break;
+                }
+                if(!(chosenTable.toLowerCase().equals("f") ||
+                        chosenTable.toLowerCase().equals("a"))) {
+                    System.out.println("Please choose an existing table. " +
+                            "(F)aculty or (A)dmin...");
+                    break;
+                }
+                try {
+                    System.out.print("Enter Value >> ");
+                    attr = input.next();
+                    value = input.next();
+                } catch (InputMismatchException ime) {
+                    System.out.println("Incorrect format. Exiting to menu...");
+                    break;
+                }
+
+                if(chosenTable.toLowerCase().equals("f")) {
+                    printTable(this.faculty.selection(attr, value));
+                } else if(chosenTable.toLowerCase().equals("a")) {
+                    printTable(this.admin.selection(attr, value));
+                } else {
+                    System.out.println("Please choose an existing table. " +
+                            "(F)aculty or (A)dmin...");
+                }
+
+
                 break;
             case 5:
                 // Do Remove
                 System.out.println("Performing remove...");
+
                 this.input = new Scanner(System.in);
-                String chosenTable;
                 String idToRemove;
                 try {
                     System.out.print("Enter Table (F/A) >> ");
@@ -166,6 +203,7 @@ public class Database {
                     System.out.println("Please choose an existing table. " +
                             "(F)aculty or (A)dmin...");
                 }
+
                 break;
             case 6:
                 printTable(this.admin);
