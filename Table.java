@@ -118,10 +118,10 @@ public class Table<T extends AttributeInterface> {
         if(head == null) {
             head = newNode;
             tail = newNode;
-        } else { // otherwise, just add to the list.
+        } else if(!this.contains(data)) { // otherwise, just add to the list.
             this.tail.next = newNode;
             this.tail = newNode;
-        }
+        } // end if statement
     } // end insert method
 
     /**
@@ -185,7 +185,9 @@ public class Table<T extends AttributeInterface> {
         temp = table.getHead();
         while(temp != null) {
             if(temp.data.check(attribute, value)) {
-                newTable.insert(temp.data);
+                if(!newTable.contains(temp.data)) {
+                    newTable.insert(temp.data);
+                }
             }
             temp = temp.next;
         }
@@ -274,9 +276,9 @@ public class Table<T extends AttributeInterface> {
     private boolean contains(T data) {
         boolean doesContain = false;
         Node temp = head;
-
+        Employee dataEmp = (Employee)data;
         while(temp != null) {
-            if(temp.data.equals(data)) {
+            if(temp.data.check("id", dataEmp.getId())) {
                 doesContain = true;
             }
             temp = temp.next;

@@ -82,7 +82,7 @@ public class Database {
                 continue;
             }
 
-            incorrectChoice = performSelection(userSelection);
+            incorrectChoice = performUserSelection(userSelection);
         } // end while loop
         this.input.close();
     } // end go method
@@ -109,7 +109,7 @@ public class Database {
      * @return True if the selection is valid, allowing another choice from
      *         the main menu.
      */
-    private boolean performSelection(int selection) {
+    private boolean performUserSelection(int selection) {
         boolean isValidChoice = true;
         String chosenTable = null;
         switch (selection) {
@@ -119,54 +119,23 @@ public class Database {
                 System.exit(0);
             case 1:
                 System.out.println("Performing intersect...");
+                performDatabaseIntersect();
                 break;
             case 2:
                 // Do Difference
                 System.out.println("Performing difference...");
+                // TODO Still need to finish method below
+                performDatabaseDifference();
                 break;
             case 3:
                 // Do Union
                 System.out.println("Performing union...");
+                performDatabaseUnion();
                 break;
             case 4:
                 // Do Select
                 System.out.println("Performing select...");
-
-                this.input = new Scanner(System.in);
-                String attr = "";
-                String value = "";
-                try {
-                    System.out.print("Enter Table (F/A) >> ");
-                    chosenTable = input.next();
-                } catch (InputMismatchException ime) {
-                    System.out.println("Incorrect format. Exiting to menu...");
-                    break;
-                }
-                if(!(chosenTable.toLowerCase().equals("f") ||
-                        chosenTable.toLowerCase().equals("a"))) {
-                    System.out.println("Please choose an existing table. " +
-                            "(F)aculty or (A)dmin...");
-                    break;
-                }
-                try {
-                    System.out.print("Enter Value >> ");
-                    attr = input.next();
-                    value = input.next();
-                } catch (InputMismatchException ime) {
-                    System.out.println("Incorrect format. Exiting to menu...");
-                    break;
-                }
-
-                if(chosenTable.toLowerCase().equals("f")) {
-                    printTable(this.faculty.selection(attr, value));
-                } else if(chosenTable.toLowerCase().equals("a")) {
-                    printTable(this.admin.selection(attr, value));
-                } else {
-                    System.out.println("Please choose an existing table. " +
-                            "(F)aculty or (A)dmin...");
-                }
-
-
+                performDatabaseSelect();
                 break;
             case 5:
                 // Do Remove
@@ -270,6 +239,98 @@ public class Database {
         System.out.printf("%s%s%s\n\n", EQUALS, table.getTitle(), EQUALS);
     }
 
+    /**
+     * Get the input needed for performing a union on two tables, perform the
+     * union, then print the newly created table.
+     */
+    private void performDatabaseUnion() {
+
+        printTable(this.faculty.union(this.admin));
+
+    } // End performDatabaseUnion
+
+    /**
+     * Get the input needed for performing a intersect on two tables, perform
+     * the intersect, then print the newly created table.
+     */
+    private void performDatabaseIntersect() {
+
+        String attr = "";
+        String value = "";
+
+        try {
+            System.out.print("Enter Attribute >> ");
+            attr = input.next();
+            System.out.print("Enter Value >> ");
+            value = input.next();
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Incorrect format. Exiting to menu...");
+            return;
+        } catch (IllegalStateException ise) {
+            System.out.println("Scanner was closed prematurely. " +
+                    "Exiting to menu...");
+            return;
+        }
+
+        printTable(this.faculty.intersect(attr, value, this.admin));
+    } // End performDatabaseIntersect method
+
+    /**
+     * Get the input needed for performing a intersect on two tables, perform
+     * the intersect, then print the newly created table.
+     */
+    private void performDatabaseDifference() {
+
+    } // End performDatabaseDifference method
+
+    /**
+     * Get the input needed for performing a Select on a table, perform the
+     * select, then print the newly created table.
+     */
+    private void performDatabaseSelect() {
+
+        String attr = "";
+        String value = "";
+        String chosenTable = null;
+        try {
+            System.out.print("Enter Table (F/A) >> ");
+            chosenTable = input.next();
+        } catch (InputMismatchException ime) {
+            System.out.println("Incorrect format. Exiting to menu...");
+            return;
+        }
+        if(!(chosenTable.toLowerCase().equals("f") ||
+                chosenTable.toLowerCase().equals("a"))) {
+            System.out.println("Please choose an existing table. " +
+                    "(F)aculty or (A)dmin...");
+            return;
+        }
+        try {
+            System.out.print("Enter Attribute >> ");
+            attr = input.next();
+            System.out.print("Enter Value >> ");
+            value = input.next();
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Incorrect format. Exiting to menu...");
+            return;
+        } catch (IllegalStateException ise) {
+            System.out.println("Scanner was closed prematurely. " +
+                    "Exiting to menu...");
+            return;
+        }
+
+        if(chosenTable.toLowerCase().equals("f")) {
+            printTable(this.faculty.selection(attr.toLowerCase(),
+                    value.toLowerCase()));
+        } else if(chosenTable.toLowerCase().equals("a")) {
+            printTable(this.admin.selection(attr.toLowerCase(),
+                    value.toLowerCase()));
+        } else {
+            System.out.println("Please choose an existing table. " +
+                    "(F)aculty or (A)dmin...");
+        }
+
+    } // End performDatabaseSelect method
 
     /**
      * Creates a string of size <em>length</em> of the same character. Used for
