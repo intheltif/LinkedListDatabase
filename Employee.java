@@ -51,50 +51,92 @@ public class Employee implements AttributeInterface  {
 
     } // end constructor
 
+    /**
+     * Gets the id of this person as a string.
+     *
+     * @return This person's ID as a string.
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the id of this person.
+     *
+     * @param id The new id given to this person.
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Gets the phone number of this person as a string.
+     *
+     * @return This person's phone number as a string.
+     */
     public String getPhone() {
         return phone;
     }
 
+    /**
+     * Sets the phone number of this person.
+     *
+     * @param phone The new phone number given to this person.
+     */
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    /**
+     * Gets the division of this person as a string.
+     *
+     * @return This person's division as a string.
+     */
     public String getDivision() {
         return division;
     }
 
+    /**
+     * Sets the division of this person.
+     *
+     * @param division The new division the person is a part of.
+     */
     public void setDivision(String division) {
         this.division = division;
     }
 
+    /**
+     * Gets the number of years this person has been working here.
+     *
+     * @return This number of years worked here as a String.
+     */
     public String getYears() {
         return years;
     }
 
+    /**
+     * Sets the number of years this person has worked here.
+     *
+     * @param years The number of years worked here.
+     */
     public void setYears(String years) {
         this.years = years;
     }
 
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
+    /**
+     * Gets the department name this employee belongs to.
+     *
+     * @return The name of this employee's department.
+     */
     public String getDepartment() {
         return department;
     }
 
+    /**
+     * Sets the department of this employee
+     *
+     * @param department The new department of this employee.
+     */
     public void setDepartment(String department) {
         this.department = department;
     }
@@ -137,13 +179,21 @@ public class Employee implements AttributeInterface  {
                     hasAttribute = true;
                 }
                 break;
+            case "department":
+                if(this.department.equals(value)) {
+                    hasAttribute = true;
+                }
+                break;
         } // end switch statement
 
         return hasAttribute;
     } // end check method.
 
     /**
-     * Change the value of a specific attribute.
+     * Change the value of a specific attribute. For changing the person
+     * attribute, you must specify the part of the person (first, last, status)
+     * that is being changed, and provide that value. This method will take
+     * care of changing the person object.
      *
      * @param attribute The attribute to change.
      * @param value The value we are changing the attribute to.
@@ -151,8 +201,43 @@ public class Employee implements AttributeInterface  {
      */
     @Override
     public boolean change(String attribute, String value) {
-        // TODO finish change method.
-        return false;
+        boolean wasChanged = false;
+
+        switch(attribute) {
+            case "id":
+                this.setId(value);
+                wasChanged = true;
+                break;
+            case "phone":
+                this.setPhone(value);
+                wasChanged = true;
+                break;
+            case "division":
+                this.setDivision(value);
+                break;
+            case "years":
+                this.setYears(value);
+                wasChanged = true;
+                break;
+            case "first":
+                this.person.setFirst(value);
+                wasChanged = true;
+                break;
+            case "last":
+                this.person.setLast(value);
+                wasChanged = true;
+                break;
+            case "status":
+                this.person.setStatus(value);
+                wasChanged = true;
+                break;
+            case "department":
+                this.setDepartment(value);
+                wasChanged = true;
+                break;
+        } // end switch statement
+
+        return wasChanged;
     } // end change method
 
     /**
@@ -166,7 +251,7 @@ public class Employee implements AttributeInterface  {
     }
 
     /**
-     * Derterminese wheter an Employee is equal to another based on their ID.
+     * Determines whether an Employee is equal to another based on their ID.
      *
      * @return true if this is the same Employee, false if not.
      */
@@ -174,7 +259,7 @@ public class Employee implements AttributeInterface  {
         Employee otherEmployee = (Employee)other;
         boolean isEqual = false;
 
-        if(this.id == otherEmployee.id) {
+        if(this.id.equals(otherEmployee.id)) {
             isEqual = true;
         }
 
@@ -200,13 +285,13 @@ public class Employee implements AttributeInterface  {
     public String toString() {
         StringBuilder builtString = new StringBuilder();
 
-        builtString.append("Employee(" + this.id + ") ");
-        builtString.append(this.person.getLast() + ", ");
-        builtString.append(this.person.getFirst() + ": ");
-        builtString.append(this.person.getStatus() + "\n");
-        builtString.append("\tRecord: " + this.years + " years in division ");
-        builtString.append("[" +this.years + "] -- Dept: " + this.department);
-        builtString.append("\n" + DASHES);
+        builtString.append("Employee(").append(this.id).append(") ");
+        builtString.append(this.person.getLast()).append(", ");
+        builtString.append(this.person.getFirst()).append(": ");
+        builtString.append(this.person.getStatus()).append("\n");
+        builtString.append("\tRecord: ").append(this.years).append(" years in division ");
+        builtString.append("[").append(this.years).append("] -- Dept: ").append(this.department);
+        builtString.append("\n").append(DASHES);
 
         return builtString.toString();
     }
