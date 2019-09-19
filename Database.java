@@ -175,8 +175,8 @@ public class Database {
 
                 break;
             case 6:
-                printTable(this.admin);
                 printTable(this.faculty);
+                printTable(this.admin);
                 break;
             default:
                 System.out.println("Invalid choice. Try again.");
@@ -281,6 +281,28 @@ public class Database {
      */
     private void performDatabaseDifference() {
 
+        String chosenTable = "";
+
+        try {
+            System.out.print("Enter Table (F/A) >> ");
+            chosenTable = input.next();
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Incorrect format. Exiting to menu...");
+            return;
+        } catch (IllegalStateException ise) {
+            System.out.println("Scanner was closed prematurely. " +
+                    "Exiting to menu...");
+            return;
+        }
+
+        if(chosenTable.toLowerCase().equals("f")) {
+            printTable(this.faculty.difference(this.admin));
+        } else if(chosenTable.toLowerCase().equals("a")) {
+            printTable(this.admin.difference(this.faculty));
+        } else {
+            System.out.println("Please choose an existing table. " +
+                    "(F)aculty or (A)dmin...");
+        }
     } // End performDatabaseDifference method
 
     /**

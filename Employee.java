@@ -290,7 +290,7 @@ public class Employee implements AttributeInterface  {
         builtString.append(this.person.getFirst()).append(": ");
         builtString.append(this.person.getStatus()).append("\n");
         builtString.append("\tRecord: ").append(this.years).append(" years in division ");
-        builtString.append("[").append(this.years).append("] -- Dept: ").append(this.department);
+        builtString.append("[").append(this.division).append("] -- Dept: ").append(this.department);
         builtString.append("\n").append(DASHES);
 
         return builtString.toString();

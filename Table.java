@@ -208,6 +208,17 @@ public class Table<T extends AttributeInterface> {
                 + table.getTitle());
 
         // TODO perform difference
+        Node temp = head;
+        Node other = table.getHead();
+
+        // First check this table.
+        while(temp != null) {
+            if(!(temp.data.equals(other.data))) {
+                newTable.insert(temp.data);
+            }
+            temp = temp.next;
+            other = other.next;
+        }
 
         return newTable;
     } // end difference method.
