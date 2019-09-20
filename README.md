@@ -17,4 +17,5 @@ java Database
 and following the on screen prompts.
 
 ## Known Issues
-There are currently no known issues.
+When printing a record that occurs in both tables, the department field only
+shows the first department encountered for this employee.
