@@ -1,3 +1,10 @@
+/**
+ * An interface that provides methods the records in the database
+ * must implement.
+ *
+ * @author Evert Ball
+ * @version 09/18/2019
+ */
 public interface AttributeInterface {
 
     /**
@@ -11,7 +18,7 @@ public interface AttributeInterface {
     public boolean change(String attribute, String value);
 
     /**
-     * Make a deep copy. Do NOT use clone() or copy constructor.
+     * Make a deep copy.
      */
     public AttributeInterface makeCopy();
 } //end AttributeInterface interface

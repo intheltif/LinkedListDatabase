@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.InputMismatchException;
 
 /**
  * Represents an employee in our database.
@@ -152,6 +151,7 @@ public class Employee implements AttributeInterface  {
     @Override
     public boolean check(String attribute, String value) {
 
+        // Whether an attribute with a specific value exists.
         boolean hasAttribute = false;
 
         switch(attribute) {
@@ -202,6 +202,8 @@ public class Employee implements AttributeInterface  {
      */
     @Override
     public boolean change(String attribute, String value) {
+
+        // Whether or not the attribute was changed.
         boolean wasChanged = false;
 
         switch(attribute) {
@@ -242,9 +244,9 @@ public class Employee implements AttributeInterface  {
     } // end change method
 
     /**
-     * Create a deep copy. NOTE: Do not use clone() or copy constructors.
+     * Create a deep copy of this employee.
      *
-     * @return A deep copy.
+     * @return A deep copy of this employee.
      */
     @Override
     public AttributeInterface makeCopy() {
@@ -292,6 +294,11 @@ public class Employee implements AttributeInterface  {
         return new String(data);
     } // end repeatChar method.
 
+    /**
+     * Returns a String representation of this employee.
+     *
+     * @return The String representation of an employee.
+     */
     @Override
     public String toString() {
         StringBuilder builtString = new StringBuilder();

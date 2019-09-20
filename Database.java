@@ -105,8 +105,6 @@ public class Database {
      * Performs the main menu item selected by the user.
      *
      * @param selection The main menu number input by the user.
-     * @return True if the selection is valid, allowing another choice from
-     *         the main menu.
      */
     private void performUserSelection(String selection) {
         String chosenTable = null;
@@ -122,7 +120,6 @@ public class Database {
             case "2":
                 // Do Difference
                 System.out.println("Performing difference...");
-                // TODO Still need to finish method below
                 performDatabaseDifference();
                 break;
             case "3":
@@ -194,7 +191,6 @@ public class Database {
             this.input = new Scanner(file);
 
             while(input.hasNext()) {
-                //TODO Remove println's here
                 String lastName = input.next();
                 String firstName = input.next();
                 String status = input.next();

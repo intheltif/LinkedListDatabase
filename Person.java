@@ -1,29 +1,42 @@
-/*
- * Represents a person in our Database.
+/**
+ * Representation of a person to be used by our Employee object.
  *
  * @author Evert Ball
  * @version 09/18/2019
  */
 public class Person {
 
-    /** An enumeration of marital statuses a person can have */
+    /** An enumeration of marital statuses a person may have */
     private enum Status {
 
+        // The statuses are read in to the database as a single letter
+        // and based on that letter, we get the word for the marital status.
         S("Single"),
         M("Married"),
         D("Divorced"),
         W("Widowed");
 
+        /** The marital status */
         private final String status;
 
+        /**
+         * Constructor to build a status enum object.
+         *
+         * @param status The marital status.
+         */
         private Status(String status) {
             this.status = status;
         }
 
+        /**
+         * Returns a String representation of the marital status.
+         *
+         * @return The marital status as a String.
+         */
         public String getStatus() {
             return this.status;
         }
-    }
+    } // end Status enum
 
     /** First Name */
     private String first;

@@ -1,3 +1,11 @@
+/**
+ * An object that represents a table in our database. The type of this table
+ * must implement the <em>AttributeInterface</em> interface.
+ *
+ * @author Evert Ball
+ * @version 09/18/2019
+ *
+ */
 public class Table<T extends AttributeInterface> {
 
     /** First record in the table */
@@ -104,9 +112,8 @@ public class Table<T extends AttributeInterface> {
      * Adds a new record to the end of table. If the table is empty, sets the
      * head and the tail references to the new node. Otherwise it changes the
      * current tail to point to the newly created Node and moves the tail to
-     * the new Node.
-     *
-     * TODO: Maybe remove a bit of documentaion explaining how it works.
+     * the new Node. If the record already exists in our table, we do not add
+     * it again.
      *
      * @param data The data for the new row in the table.
      */
@@ -134,28 +141,28 @@ public class Table<T extends AttributeInterface> {
      */
     public void remove(String id) {
         // Store head node
-        Node temp = head;
+        Node current = head;
         Node prev = null;
 
         // If the id is the first node
-        if (temp != null && temp.data.check("id", id)) {
-            head = temp.next; // Changed head
+        if (current != null && current.data.check("id", id)) {
+            head = current.next; // Changed head
             return;
         }
 
         // Search for the id to be removed, keep track of where we are in list
-        while (temp != null && !(temp.data.check("id", id))) {
-            prev = temp;
-            temp = temp.next;
+        while (current != null && !(current.data.check("id", id))) {
+            prev = current;
+            current = current.next;
         }
 
         // If id was not found
-        if (temp == null) {
+        if (current == null) {
             return;
         }
 
         // Unlink the node from linked list thus removing it.
-        prev.next = temp.next;
+        prev.next = current.next;
     } // end remove method
 
     /**
@@ -169,11 +176,14 @@ public class Table<T extends AttributeInterface> {
      * table and the other.
      */
     public Table<T> intersect(String attribute, String value, Table<T> table) {
+
+        // Create new table whose title is a comma separated combination of the
+        // two tables we are intersecting.
         Table<T> newTable = new Table<>(this.getTitle() + ", "
                 + table.getTitle());
-        Node temp = head;
 
         // First check this table.
+        Node temp = head;
         while(temp != null) {
             if(temp.data.check(attribute, value)) {
                 newTable.insert(temp.data);
@@ -204,18 +214,23 @@ public class Table<T extends AttributeInterface> {
      * table and the other.
      */
     public Table<T> difference(Table<T> table) {
+
+        // Create new table whose title is a comma separated combination of the
+        // two tables we are performing the difference operation on.
         Table<T> newTable = new Table<>(this.getTitle() + ", "
                 + table.getTitle());
 
-        // TODO perform difference
         Node temp = head;
         Node other = table.getHead();
 
-        // First check this table.
+        // For each record in this table, check if the other table's record
+        // is the same. If not, add it to the new table.
         while(temp != null) {
+            // If the data is not equal, add it to the new list.
             if(!(temp.data.equals(other.data))) {
                 newTable.insert(temp.data);
             }
+            // Move to the next record
             temp = temp.next;
             other = other.next;
         }
@@ -232,20 +247,23 @@ public class Table<T extends AttributeInterface> {
      * the other.
      */
     public Table<T> union(Table<T> table) {
+
+        // Create new table whose title is a comma separated combination of the
+        // two tables we are performing the difference operation on.
         Table<T> newTable = new Table<>(this.getTitle() + ", "
                 + table.getTitle());
 
-        Node temp = head;
 
         // Add everything from this list
+        Node temp = head;
         while(temp != null) {
             newTable.insert(temp.data);
             temp = temp.next;
         }
 
-        temp = table.getHead();
 
         // Insert everything from the other list, except duplicates.
+        temp = table.getHead();
         while(temp != null) {
             if(table.contains(temp.data)) {
                 newTable.insert(temp.data);
@@ -266,13 +284,18 @@ public class Table<T extends AttributeInterface> {
      * and the other.
      */
     public Table<T> selection(String attribute, String value) {
+
+        //Create a new table so that we do not mess up our original table.
         Table<T> newTable = new Table<>(this.title);
         Node temp = head;
 
+        // For every record in the table, check if it contains the specified
+        // attribute and add it to the new list if it does.
         while(temp != null) {
             if(temp.data.check(attribute, value)) {
                 newTable.insert(temp.data);
             }
+            // move to the next record
             temp = temp.next;
         }
 
@@ -280,7 +303,8 @@ public class Table<T extends AttributeInterface> {
     } // end selection method.
 
     /**
-     * Determines whether a table contains a certain piece of data.
+     * Determines whether the table contains a certain record based on that
+     * record's ID.
      *
      * @return True if the table contains the data we're searching for.
      */
