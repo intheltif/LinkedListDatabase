@@ -13,5 +13,5 @@ public interface AttributeInterface {
     /**
      * Make a deep copy. Do NOT use clone() or copy constructor.
      */
-    public void /*AttributeInterface*/ makeCopy();
+    public AttributeInterface makeCopy();
 } //end AttributeInterface interface

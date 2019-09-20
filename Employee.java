@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.InputMismatchException;
 
 /**
  * Represents an employee in our database.
@@ -246,8 +247,14 @@ public class Employee implements AttributeInterface  {
      * @return A deep copy.
      */
     @Override
-    public void /*AttributeInterface*/ makeCopy() {
-        // TODO finish makeCopy method that makes a deep copy.
+    public AttributeInterface makeCopy() {
+
+        AttributeInterface copy = new Employee(this.person.getLast(),
+                this.person.getFirst(), this.person.getStatus(), this.getId(),
+                this.getPhone(), this.getDivision(), this.getYears(),
+                this.getDepartment());
+
+        return copy;
     }
 
     /**
@@ -256,11 +263,15 @@ public class Employee implements AttributeInterface  {
      * @return true if this is the same Employee, false if not.
      */
     public boolean equals(Object other) {
-        Employee otherEmployee = (Employee)other;
+
         boolean isEqual = false;
 
-        if(this.id.equals(otherEmployee.id)) {
-            isEqual = true;
+        if(other instanceof Employee) {
+            Employee otherEmployee = (Employee) other;
+
+            if (this.id.equals(otherEmployee.id)) {
+                isEqual = true;
+            }
         }
 
         return isEqual;
