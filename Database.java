@@ -19,7 +19,7 @@ public class Database {
     private static final int SUCCESS = 0;
 
     /** A constant to represent a row of equals to separate data. */
-    private static final String EQUALS = repeatChar('=', 35);
+    private static final String EQUALS = repeatChar('=', 33);
 
     /** Table holding information about faculty staff. */
     private Table<Employee> faculty = new Table<>("Faculty");
@@ -67,23 +67,21 @@ public class Database {
         populateDB(adminData, this.admin);
         populateDB(facultyData, this.faculty);
 
-        int userSelection = -1;
+        String userSelection = "";
         boolean incorrectChoice = true;
         this.input = new Scanner(System.in);
-
-        while(incorrectChoice) {
-
+        do{
             printMainMenu();
-
-            try {
-                userSelection = input.nextInt();
-            } catch (InputMismatchException ime) {
+            try{
+                userSelection = input.next();
+            } catch(InputMismatchException ime) {
                 incorrectChoice = true;
-                continue;
             }
 
-            incorrectChoice = performUserSelection(userSelection);
-        } // end while loop
+            performUserSelection(userSelection);
+
+        } while(incorrectChoice);
+
         this.input.close();
     } // end go method
 
@@ -99,7 +97,7 @@ public class Database {
         System.out.println("\t4) Select");
         System.out.println("\t5) Remove");
         System.out.println("\t6) Print both tables");
-        System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ");
     } // end printMainMenu method
 
     /**
@@ -109,35 +107,34 @@ public class Database {
      * @return True if the selection is valid, allowing another choice from
      *         the main menu.
      */
-    private boolean performUserSelection(int selection) {
-        boolean isValidChoice = true;
+    private void performUserSelection(String selection) {
         String chosenTable = null;
         switch (selection) {
-            case 0:
+            case "0":
                 // Exit the program
                 System.out.println("Quitting...");
                 System.exit(0);
-            case 1:
+            case "1":
                 System.out.println("Performing intersect...");
                 performDatabaseIntersect();
                 break;
-            case 2:
+            case "2":
                 // Do Difference
                 System.out.println("Performing difference...");
                 // TODO Still need to finish method below
                 performDatabaseDifference();
                 break;
-            case 3:
+            case "3":
                 // Do Union
                 System.out.println("Performing union...");
                 performDatabaseUnion();
                 break;
-            case 4:
+            case "4":
                 // Do Select
                 System.out.println("Performing select...");
                 performDatabaseSelect();
                 break;
-            case 5:
+            case "5":
                 // Do Remove
                 System.out.println("Performing remove...");
 
@@ -174,7 +171,7 @@ public class Database {
                 }
 
                 break;
-            case 6:
+            case "6":
                 printTable(this.faculty);
                 printTable(this.admin);
                 break;
@@ -182,7 +179,6 @@ public class Database {
                 System.out.println("Invalid choice. Try again.");
                 break;
         } // end switch statement
-        return isValidChoice;
     } // end performSelection method.
 
     /**
