@@ -12,6 +12,7 @@ import java.util.Scanner;
  * @version 09/18/2019
  */
 public class Database {
+
     /** A constant to represent a failed exit. */
     private static final int FAILURE = 1;
 
@@ -208,8 +209,8 @@ public class Database {
             } // end while
             this.input.close();
         } catch (FileNotFoundException fnfe) {
-            System.out.println("Unable to read faculty data into database. " +
-                    "Exiting...");
+            System.out.println("Unable to read data into database. " +
+                    "Cannot find file. Exiting...");
             System.exit(FAILURE);
         } catch (InputMismatchException ime) {
             System.out.println("Phone, ID, Division, and Years must be an " +
